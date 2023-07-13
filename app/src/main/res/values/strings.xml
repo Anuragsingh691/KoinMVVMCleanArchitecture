@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SwipeMVVMKoin</string>
+    <string name="BASE_URL">https://app.getswipe.in/api/public/</string>
+</resources>
