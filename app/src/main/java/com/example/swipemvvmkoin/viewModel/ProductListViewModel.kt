@@ -1,6 +1,5 @@
 package com.example.swipemvvmkoin.viewModel
 
-import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,19 +10,19 @@ import com.example.swipemvvmkoin.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class ProductListViewModel(private val repository: SwipeApiRepository) : ViewModel() {
-    private val showLoading = ObservableBoolean()
-    private val countriesList = MutableLiveData<List<ProductItem>?>()
-    private val showError = SingleLiveEvent<String?>()
+    val showLoading = SingleLiveEvent<Boolean>()
+    val productList = MutableLiveData<List<ProductItem>?>()
+    val showError = SingleLiveEvent<String?>()
 
-    fun getAllUsers() {
-        showLoading.set(true)
+    fun getAllProducts() {
+        showLoading.value = true
         viewModelScope.launch {
             val result = repository.getProducts()
 
-            showLoading.set(false)
+            showLoading.value = false
             when (result) {
                 is AppResult.Success -> {
-                    countriesList.value = result.successData
+                    productList.value = result.successData
                     showError.value = null
                 }
 
