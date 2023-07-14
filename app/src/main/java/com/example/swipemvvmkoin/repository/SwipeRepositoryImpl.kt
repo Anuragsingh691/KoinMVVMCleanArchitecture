@@ -37,5 +37,4 @@ class SwipeRepositoryImpl(private val api: SwipeApiService, private val context:
         }
     }
 
-
 }

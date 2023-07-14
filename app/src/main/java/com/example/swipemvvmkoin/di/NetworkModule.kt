@@ -40,7 +40,7 @@ val networkModule = module {
 
     single { provideHttpClient() }
     single {
-        val baseUrl = "https://app.getswipe.in/api/public/"
+        val baseUrl = androidContext().getString(R.string.BASE_URL)
         provideRetrofit(get(), baseUrl)
     }
 }

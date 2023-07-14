@@ -7,6 +7,5 @@ import com.example.swipemvvmkoin.util.AppResult
 
 interface SwipeApiRepository {
     suspend fun getProducts() : AppResult<List<ProductItem>>
-
     suspend fun postProducts(productRequest: ProductRequest) : AppResult<AddProductSuccessResponse>
 }
