@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         binding.toolbar.title = getString(R.string.app_title)
-        setStatusBarColor(this, R.color.blue_200)
+        setStatusBarColor(this, R.color.magenta_200)
     }
 
     private fun setStatusBarColor(context: Context, color: Int) {

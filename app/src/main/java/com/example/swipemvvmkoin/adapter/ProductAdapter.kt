@@ -28,9 +28,10 @@ class ProductAdapter() : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = dataList[position]
-        val colorArray = arrayOf(R.color.blue,R.color.blue_200,R.color.cyan,R.color.cyan_200,R.color.cyan_400,R.color.magenta,R.color.pink,R.color.yellow)
+        val colorArray = arrayOf(R.drawable.gradient1,R.drawable.gradient2,R.drawable.gradient3,R.drawable.gradient4,R.drawable.gradient5,R.drawable.gradient6,
+            R.drawable.gradient7)
         val randomColor = colorArray.random()
-        holder.productCard.setBackgroundColor(ContextCompat.getColor(holder.productCard.context,randomColor))
+        holder.productCard.setBackgroundResource(randomColor)
         holder.productTitle.text = data.productName
         Glide.with(holder.productImage.context)
             .load(data.image)

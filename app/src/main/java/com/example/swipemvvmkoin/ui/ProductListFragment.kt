@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.swipemvvmkoin.R
 import com.example.swipemvvmkoin.adapter.ProductAdapter
 import com.example.swipemvvmkoin.databinding.FragmentProductListBinding
@@ -44,9 +45,12 @@ class ProductListFragment : Fragment() {
 
         productListViewModel.getAllProducts()
 
-        productListViewModel.productList.observe(this) {
-            if (it != null) {
-                adapter.updateData(it)
+//        binding.recyclerView.addItemDecoration(ItemDecoration())
+
+        productListViewModel.productList.observe(this) { list->
+            if (list != null) {
+                list.sortedByDescending { it.image!=null  || it.image!=" "}
+                adapter.updateData(list)
             }
         }
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
