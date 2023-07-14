@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import com.example.swipemvvmkoin.R
 import com.example.swipemvvmkoin.databinding.FragmentAddProductBinding
 import com.example.swipemvvmkoin.model.ProductRequest
+import com.example.swipemvvmkoin.util.ToastUtils
 import com.example.swipemvvmkoin.viewModel.AddProductViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -48,13 +49,13 @@ class AddProductFragment : Fragment() {
 
         addProductViewModel.showError.observe(viewLifecycleOwner) { string ->
             string?.let {
-                Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
+                ToastUtils.showToastError(activity, it);
             }
         }
 
         addProductViewModel.showSuccessToast.observe(viewLifecycleOwner) {
             if(it==true){
-                Toast.makeText(activity, "success", Toast.LENGTH_SHORT).show()
+                ToastUtils.showToastSuccess(activity, "submitted");
             }
         }
         binding.submitBtn.setOnClickListener {
