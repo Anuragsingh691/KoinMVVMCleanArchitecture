@@ -8,7 +8,7 @@ data class ProductItem(
     @SerializedName("price")
     val price: Double,
     @SerializedName("product_name")
-    val product_name: String,
+    val productName: String,
     @SerializedName("product_type")
     val product_type: String,
     @SerializedName("tax")

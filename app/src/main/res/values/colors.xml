@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black_44">#14191A</color>
+    <color name="pink">#FF0266</color>
+    <color name="red">#F10757</color>
+    <color name="pink_200">#DC4E86</color>
+    <color name="pink_400">#DC6594</color>
+    <color name="yellow">#FFDE03</color>
+    <color name="blue">#0336FF</color>
+    <color name="cyan">#03DAC5</color>
+    <color name="blue_200">#6200EE</color>
+    <color name="magenta">#BB86FC</color>
+    <color name="magenta_200">#9045EC</color>
+    <color name="magenta_400">#7110E8</color>
+    <color name="cyan_200">#018786</color>
+    <color name="cyan_400">#03DAC6</color>
+    <color name="grey_light">#DDE2E2</color>
+    <color name="amet">#889b73</color>
+    <color name="amet_200">#6e805b</color>
+    <color name="amet_400">#627151</color>
+    <color name="cmyk">#9b7388</color>
+    <color name="cmyk_200">#8b677a</color>
+    <color name="cmyk_400">#7c5c6c</color>
+    <color name="yel">#a98c2c</color>
+    <color name="success_green">#0EC615</color>
+    <color name="yel_200">#be9d31</color>
+    <color name="yel_400">#d4af37</color>
+    <color name="bl">#3e5869</color>
+    <color name="bl_200">#264356</color>
+    <color name="bl_400">#0b2536</color>
+</resources>
