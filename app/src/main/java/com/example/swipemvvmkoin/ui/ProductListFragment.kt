@@ -3,20 +3,25 @@ package com.example.swipemvvmkoin.ui
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.swipemvvmkoin.R
 import com.example.swipemvvmkoin.adapter.ProductAdapter
 import com.example.swipemvvmkoin.databinding.FragmentProductListBinding
 import com.example.swipemvvmkoin.viewModel.ProductListViewModel
+import com.github.ybq.android.spinkit.sprite.Sprite
+import com.github.ybq.android.spinkit.style.Circle
+import com.github.ybq.android.spinkit.style.DoubleBounce
+import com.github.ybq.android.spinkit.style.WanderingCubes
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class ProductListFragment : Fragment() {
     private val productListViewModel by viewModel<ProductListViewModel>()
@@ -44,7 +49,6 @@ class ProductListFragment : Fragment() {
         binding.recyclerView.adapter = adapter
 
         productListViewModel.getAllProducts()
-
 //        binding.recyclerView.addItemDecoration(ItemDecoration())
 
         productListViewModel.productList.observe(this) { list->
