@@ -1,18 +1,18 @@
 package com.example.swipemvvmkoin.ui
 
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import androidx.core.content.ContextCompat
-import com.example.swipemvvmkoin.R
+import com.example.swipemvvmkoin.databinding.FragmentAddProductBinding
+import com.example.swipemvvmkoin.viewModel.AddProductViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddProductFragment : Fragment() {
 
+    private val addProductViewModel by viewModel<AddProductViewModel>()
+    lateinit var binding: FragmentAddProductBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -21,7 +21,8 @@ class AddProductFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_add_product, container, false)
+        binding = FragmentAddProductBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
