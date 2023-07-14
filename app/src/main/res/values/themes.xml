@@ -1,9 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.SwipeMVVMKoin" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/black_44</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="android:navigationBarColor">@color/black_44</item>
     </style>
 
     <style name="Theme.SwipeMVVMKoin" parent="Base.Theme.SwipeMVVMKoin" />
+    <style name="edit_text_style" >
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:fontFamily">@font/celias_medium</item>
+    </style>
 </resources>

@@ -1,10 +1,14 @@
 package com.example.swipemvvmkoin.ui
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import com.example.swipemvvmkoin.R
 
 class AddProductFragment : Fragment() {
@@ -20,14 +24,12 @@ class AddProductFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_add_product, container, false)
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddProductFragment().apply {
-                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initViews()
+    }
+
+    private fun initViews() {
+
     }
 }

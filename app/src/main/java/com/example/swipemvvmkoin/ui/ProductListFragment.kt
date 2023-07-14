@@ -1,6 +1,8 @@
 package com.example.swipemvvmkoin.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +49,31 @@ class ProductListFragment : Fragment() {
                 adapter.updateData(it)
             }
         }
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence?,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                val filteredList = productListViewModel.productList.value?.filter { it.productName?.contains(s.toString(), true) ?: false }
+                filteredList?.let {
+                    adapter.updateData(it)
+                }
+            }
+
+        })
 
         productListViewModel.showError.observe(this) { string ->
             string?.let {
@@ -61,7 +88,7 @@ class ProductListFragment : Fragment() {
                 binding.progressBarCyclic.visibility = View.GONE
             }
         })
-        binding.proceedBtn.setOnClickListener {
+        binding.addFab.setOnClickListener {
             findNavController().navigate(R.id.action_productListFragment_to_addProductFragment)
         }
     }
