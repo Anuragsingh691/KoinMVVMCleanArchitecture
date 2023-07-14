@@ -25,34 +25,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         binding.toolbar.title = getString(R.string.app_title)
         setStatusBarColor(this, R.color.magenta_200)
-        getPermissions()
-    }
-
-    private fun getPermissions() {
-        binding.parentLayout.visibility = View.GONE
-        val permissionList = mutableListOf<String>()
-        if(checkSelfPermission(android.Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED) permissionList.add(android.Manifest.permission.CAMERA)
-        if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED) permissionList.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-        if(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED) permissionList.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-
-        if(permissionList.size> 0){
-            requestPermissions(permissionList.toTypedArray(),101)
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        grantResults.forEach {
-            if(it!=PackageManager.PERMISSION_GRANTED){
-                getPermissions()
-            }else{
-                binding.parentLayout.visibility = View.VISIBLE
-            }
-        }
     }
 
     private fun setStatusBarColor(context: Context, color: Int) {
