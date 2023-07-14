@@ -10,7 +10,7 @@ import com.example.swipemvvmkoin.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class ProductListViewModel(private val repository: SwipeApiRepository) : ViewModel() {
-    val showLoading = SingleLiveEvent<Boolean>()
+    val showLoading = MutableLiveData<Boolean?>()
     val productList = MutableLiveData<List<ProductItem>?>()
     val showError = SingleLiveEvent<String?>()
 
@@ -18,7 +18,6 @@ class ProductListViewModel(private val repository: SwipeApiRepository) : ViewMod
         showLoading.value = true
         viewModelScope.launch {
             val result = repository.getProducts()
-
             showLoading.value = false
             when (result) {
                 is AppResult.Success -> {

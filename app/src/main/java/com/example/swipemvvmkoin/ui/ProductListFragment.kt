@@ -82,10 +82,12 @@ class ProductListFragment : Fragment() {
         }
 
         productListViewModel.showLoading.observe(this, Observer {
-            if (it) {
-                binding.progressBarCyclic.visibility = View.VISIBLE
-            } else {
+            if (it==false) {
                 binding.progressBarCyclic.visibility = View.GONE
+                binding.recyclerView.visibility = View.VISIBLE
+            } else {
+                binding.progressBarCyclic.visibility = View.VISIBLE
+                binding.recyclerView.visibility = View.GONE
             }
         })
         binding.addFab.setOnClickListener {

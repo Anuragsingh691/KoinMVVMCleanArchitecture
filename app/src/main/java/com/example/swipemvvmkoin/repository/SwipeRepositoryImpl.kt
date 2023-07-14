@@ -5,6 +5,7 @@ import android.content.Context
 import com.example.swipemvvmkoin.SwipeApiService
 import com.example.swipemvvmkoin.model.AddProductSuccessResponse
 import com.example.swipemvvmkoin.model.ProductItem
+import com.example.swipemvvmkoin.model.ProductRequest
 import com.example.swipemvvmkoin.util.AppResult
 
 class SwipeRepositoryImpl(private val api: SwipeApiService, private val context: Context) :
@@ -23,9 +24,9 @@ class SwipeRepositoryImpl(private val api: SwipeApiService, private val context:
         }
     }
 
-    override suspend fun postProducts(): AppResult<AddProductSuccessResponse> {
+    override suspend fun postProducts(productRequest: ProductRequest): AppResult<AddProductSuccessResponse> {
         return try {
-            val response = api.addProducts()
+            val response = api.addProducts(productRequest)
             if (response.isSuccessful) {
                 Utils.handleSuccess(response)
             } else {

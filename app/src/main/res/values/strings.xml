@@ -3,4 +3,10 @@
     <string name="BASE_URL">https://app.getswipe.in/api/public/</string>
     <string name="app_title">KoinCoroutineSwipeApp</string>
     <string name="app_desc">A simple MVVM clean architecture app using koin for dependency injection and coroutine and retrofit for networking.</string>
+    <string name="add_product_title">Add Product</string>
+    <string name="submit">Submit</string>
+    <string name="enter_name">Enter product name</string>
+    <string name="enter_type">Enter product type</string>
+    <string name="enter_price">Enter product price</string>
+    <string name="enter_tax">Enter product tax</string>
 </resources>

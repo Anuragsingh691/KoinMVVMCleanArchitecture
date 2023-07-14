@@ -9,7 +9,9 @@
     <color name="cyan">#03DAC5</color>
     <color name="blue_200">#6200EE</color>
     <color name="magenta">#BB86FC</color>
+    <color name="magenta_200">#9045EC</color>
+    <color name="magenta_400">#7110E8</color>
     <color name="cyan_200">#018786</color>
     <color name="cyan_400">#03DAC6</color>
-    <color name="grey_light">#B9BDBD</color>
+    <color name="grey_light">#DDE2E2</color>
 </resources>
