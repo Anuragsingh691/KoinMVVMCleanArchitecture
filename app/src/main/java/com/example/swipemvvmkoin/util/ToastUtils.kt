@@ -3,10 +3,8 @@
 package com.example.swipemvvmkoin.util
 
 import android.app.Activity
-import android.os.Handler
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.swipemvvmkoin.R
