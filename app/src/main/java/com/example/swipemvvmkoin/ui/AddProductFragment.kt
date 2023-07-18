@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import com.example.swipemvvmkoin.R
 import com.example.swipemvvmkoin.databinding.FragmentAddProductBinding
 import com.example.swipemvvmkoin.model.ProductRequest
-import com.example.swipemvvmkoin.util.ToastUtils
 import com.example.swipemvvmkoin.viewModel.AddProductViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -49,13 +48,13 @@ class AddProductFragment : Fragment() {
 
         addProductViewModel.showError.observe(viewLifecycleOwner) { string ->
             string?.let {
-                ToastUtils.showToastError(activity, it);
+                Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
             }
         }
 
         addProductViewModel.showSuccessToast.observe(viewLifecycleOwner) {
-            if(it==true){
-                ToastUtils.showToastSuccess(activity, "submitted");
+            if (it == true) {
+                Toast.makeText(activity, "submitted", Toast.LENGTH_LONG).show()
             }
         }
         binding.submitBtn.setOnClickListener {
@@ -72,8 +71,17 @@ class AddProductFragment : Fragment() {
                 val type = binding.productTypeTextInputEditText.text.toString()
                 val price = binding.productPriceTextInputEditText.text.toString()
                 val tax = binding.productTaxTextInputEditText.text.toString()
-                val path = Uri.parse("android.resource://com.example.swipemvvmkoin.ui" + R.drawable.profile)
-                addProductViewModel.addProducts(ProductRequest(productName = name, product_type = type, price = price.toDouble(), tax = tax.toDouble(), image = path.toString()))
+                val path =
+                    Uri.parse("android.resource://com.example.swipemvvmkoin.ui" + R.drawable.profile)
+                addProductViewModel.addProducts(
+                    ProductRequest(
+                        productName = name,
+                        product_type = type,
+                        price = price.toDouble(),
+                        tax = tax.toDouble(),
+                        image = path.toString()
+                    )
+                )
             }
         }
     }
