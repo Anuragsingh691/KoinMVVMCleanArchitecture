@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swipemvvmkoin.R
 import com.example.swipemvvmkoin.adapter.ProductAdapter
 import com.example.swipemvvmkoin.databinding.FragmentProductListBinding
-import com.example.swipemvvmkoin.util.ToastUtils
 import com.example.swipemvvmkoin.viewModel.ProductListViewModel
 import com.github.ybq.android.spinkit.sprite.Sprite
 import com.github.ybq.android.spinkit.style.Circle
@@ -86,7 +85,7 @@ class ProductListFragment : Fragment() {
 
         productListViewModel.showError.observe(this) { string ->
             string?.let {
-                ToastUtils.showToastError(activity, it);
+                Toast.makeText(activity,it,Toast.LENGTH_LONG).show()
             }
         }
 
