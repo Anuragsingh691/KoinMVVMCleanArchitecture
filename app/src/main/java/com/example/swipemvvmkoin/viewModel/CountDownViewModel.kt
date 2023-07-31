@@ -4,12 +4,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class CountDownViewModel : ViewModel() {
-    var time =  MutableLiveData<Int>()
+    var time = MutableLiveData<Int>()
+    private val _stateFlow = MutableStateFlow(0)
+    private val stateFlow = _stateFlow.asStateFlow()
+    val state = MutableLiveData<Int>()
     private val countDown = flow<Int> {
         val startingValue = 10
         var currentValue = startingValue
@@ -21,11 +28,30 @@ class CountDownViewModel : ViewModel() {
         }
     }
 
+    fun incrementCounter() {
+        _stateFlow.value += 1;
+    }
+
+    fun collectStateFlow() {
+        viewModelScope.launch {
+            stateFlow.collectLatest {
+                state.value = it
+            }
+        }
+    }
+
     fun collectFlow() {
         viewModelScope.launch {
-            countDown.collectLatest { timer ->
-                time.value = timer
-            }
+            countDown
+                .filter {
+                    it % 2 == 0
+                }
+                .map {
+                    it * it
+                }
+                .collect { timer ->
+                    time.value = timer
+                }
         }
     }
 }

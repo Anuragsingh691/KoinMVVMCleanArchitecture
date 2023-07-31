@@ -5,15 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.runtime.collectAsState
-import androidx.lifecycle.lifecycleScope
-import com.example.swipemvvmkoin.R
 import com.example.swipemvvmkoin.databinding.FragmentCountDownFlowExampleBinding
-import com.example.swipemvvmkoin.databinding.FragmentProductListBinding
 import com.example.swipemvvmkoin.viewModel.CountDownViewModel
-import com.example.swipemvvmkoin.viewModel.ProductListViewModel
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CountDownFlowExampleFragment : Fragment() {
@@ -36,12 +29,19 @@ class CountDownFlowExampleFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         countDownViewModel.collectFlow()
+        countDownViewModel.collectStateFlow()
+        binding.incrementBtn.setOnClickListener {
+            countDownViewModel.incrementCounter()
+        }
         initialiseCountDown()
     }
 
     private fun initialiseCountDown() {
-        countDownViewModel.time.observe(this){
+        countDownViewModel.state.observe(this){
             binding.countDown.text = it.toString()
         }
+//        countDownViewModel.time.observe(this){
+//            binding.countDown.text = it.toString()
+//        }
     }
 }
