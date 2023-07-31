@@ -9,7 +9,10 @@ import com.example.swipemvvmkoin.model.ProductRequest
 import com.example.swipemvvmkoin.util.AppResult
 
 class SwipeRepositoryImpl(private val api: SwipeApiService, private val context: Context) :
-    SwipeApiRepository {
+    SwipeApiRepository2 {
+    override suspend fun getProducts2(): AppResult<List<ProductItem>> {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun getProducts(): AppResult<List<ProductItem>> {
         return try {
