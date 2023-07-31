@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swipemvvmkoin.R
 import com.example.swipemvvmkoin.adapter.ProductAdapter
 import com.example.swipemvvmkoin.databinding.FragmentProductListBinding
+import com.example.swipemvvmkoin.viewModel.EventWrapperSampleViewModel
 import com.example.swipemvvmkoin.viewModel.ProductListViewModel
 import com.github.ybq.android.spinkit.sprite.Sprite
 import com.github.ybq.android.spinkit.style.Circle
@@ -27,6 +29,7 @@ class ProductListFragment : Fragment() {
     private val productListViewModel by viewModel<ProductListViewModel>()
     private val adapter = ProductAdapter()
     lateinit var binding: FragmentProductListBinding
+//    private val sharedViewModel : EventWrapperSampleViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

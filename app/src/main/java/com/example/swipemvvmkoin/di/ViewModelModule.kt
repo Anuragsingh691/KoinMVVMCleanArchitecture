@@ -1,6 +1,7 @@
 package com.example.swipemvvmkoin.di
 
 import com.example.swipemvvmkoin.viewModel.AddProductViewModel
+import com.example.swipemvvmkoin.viewModel.CountDownViewModel
 import com.example.swipemvvmkoin.viewModel.ProductListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -15,6 +16,10 @@ val viewModelModule = module {
 
     viewModel{
         AddProductViewModel(repository = get())
+    }
+
+    viewModel{
+        CountDownViewModel()
     }
 
 }

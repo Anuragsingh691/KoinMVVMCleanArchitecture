@@ -6,12 +6,16 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.swipemvvmkoin.R
 import com.example.swipemvvmkoin.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+//    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +27,9 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         binding.toolbar.title = getString(R.string.app_title)
         setStatusBarColor(this, R.color.magenta_200)
+//        navController = findNavController(org.koin.androidx.navigation.R.id.fragmentContainerView)
+//        setupActionBarWithNavController()
+
     }
 
     private fun setStatusBarColor(context: Context, color: Int) {

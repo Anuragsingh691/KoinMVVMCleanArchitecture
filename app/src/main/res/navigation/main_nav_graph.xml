@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/productListFragment">
+    app:startDestination="@id/countDownFlowExampleFragment">
 
 
     <fragment
         android:id="@+id/productListFragment"
         android:name="com.example.swipemvvmkoin.ui.ProductListFragment"
         android:label="fragment_product_list"
-        tools:layout="@layout/fragment_product_list" >
+        tools:layout="@layout/fragment_product_list">
         <action
             android:id="@+id/action_productListFragment_to_addProductFragment"
             app:destination="@id/addProductFragment" />
@@ -20,4 +20,9 @@
         android:name="com.example.swipemvvmkoin.ui.AddProductFragment"
         android:label="fragment_add_product"
         tools:layout="@layout/fragment_add_product" />
+    <fragment
+        android:id="@+id/countDownFlowExampleFragment"
+        android:name="com.example.swipemvvmkoin.ui.CountDownFlowExampleFragment"
+        android:label="fragment_count_down_flow_example"
+        tools:layout="@layout/fragment_count_down_flow_example" />
 </navigation>
