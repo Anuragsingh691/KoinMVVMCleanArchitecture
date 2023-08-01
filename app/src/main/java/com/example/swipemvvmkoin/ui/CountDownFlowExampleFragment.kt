@@ -30,14 +30,15 @@ class CountDownFlowExampleFragment : Fragment() {
         super.onResume()
         countDownViewModel.collectFlow()
         countDownViewModel.collectStateFlow()
+        countDownViewModel.collectSharedFlow()
         binding.incrementBtn.setOnClickListener {
-            countDownViewModel.incrementCounter()
+            countDownViewModel.squaredNumber(2)
         }
         initialiseCountDown()
     }
 
     private fun initialiseCountDown() {
-        countDownViewModel.state.observe(this){
+        countDownViewModel.shared.observe(this){
             binding.countDown.text = it.toString()
         }
 //        countDownViewModel.time.observe(this){
