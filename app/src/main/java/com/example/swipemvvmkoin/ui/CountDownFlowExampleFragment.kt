@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.swipemvvmkoin.databinding.FragmentCountDownFlowExampleBinding
 import com.example.swipemvvmkoin.viewModel.CountDownViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,14 +37,30 @@ class CountDownFlowExampleFragment : Fragment() {
         countDownViewModel.collectStateFlow()
         countDownViewModel.collectSharedFlow()
         binding.incrementBtn.setOnClickListener { view ->
-            Intent(ACTION_MAIN).also {
-                it.setPackage("com.google.android.youtube")
-                try {
-                    startActivity(it)
-                } catch (e: ActivityNotFoundException) {
-                    e.printStackTrace()
+            // explicit intent
+//            Intent(ACTION_MAIN).also {
+//                it.setPackage("com.google.android.youtube")
+//                try {
+//                    startActivity(it)
+//                } catch (e: ActivityNotFoundException) {
+//                    e.printStackTrace()
+//                }
+//            }
+
+            val intent = Intent(ACTION_MAIN).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_EMAIL, arrayOf("test@test.com"))
+                putExtra(Intent.EXTRA_SUBJECT, "This is the subject")
+                putExtra(Intent.EXTRA_TEXT, "This is the content")
+            }
+            activity?.let { act ->
+                if (intent.resolveActivity(act.packageManager) != null) {
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(context, "Activity not found", Toast.LENGTH_LONG).show()
                 }
             }
+            // flow
 //            countDownViewModel.squaredNumber(2)
         }
         initialiseCountDown()
