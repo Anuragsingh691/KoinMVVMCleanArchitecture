@@ -9,6 +9,7 @@ import com.example.swipemvvmkoin.model.ProductRequest
 import com.example.swipemvvmkoin.repository.SwipeApiRepository
 import com.example.swipemvvmkoin.util.AppResult
 import com.example.swipemvvmkoin.util.SingleLiveEvent
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AddProductViewModel(private val repository: SwipeApiRepository) : ViewModel() {
@@ -18,7 +19,7 @@ class AddProductViewModel(private val repository: SwipeApiRepository) : ViewMode
 
     fun addProducts(productRequest: ProductRequest) {
         showLoading.value = true
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             when (val result = repository.postProducts(productRequest)) {
                 is AppResult.Success -> {
                     showLoading.value = false

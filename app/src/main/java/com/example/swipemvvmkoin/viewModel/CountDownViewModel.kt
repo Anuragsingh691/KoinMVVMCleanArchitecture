@@ -3,6 +3,8 @@ package com.example.swipemvvmkoin.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +16,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class CountDownViewModel : ViewModel() {
     var time = MutableLiveData<Int>()
@@ -23,6 +26,7 @@ class CountDownViewModel : ViewModel() {
     private val _sharedFlow = MutableSharedFlow<Int>()
     private val sharedFlow = _sharedFlow.asSharedFlow()
     val shared = MutableLiveData<Int>()
+    var error = MutableLiveData<String>()
     private val countDown = flow<Int> {
         val startingValue = 10
         var currentValue = startingValue
@@ -34,7 +38,7 @@ class CountDownViewModel : ViewModel() {
         }
     }
 
-    fun squaredNumber(number:Int){
+    fun squaredNumber(number: Int) {
         viewModelScope.launch {
             _sharedFlow.emit(number * number)
         }
@@ -52,9 +56,9 @@ class CountDownViewModel : ViewModel() {
         }
     }
 
-    fun collectSharedFlow(){
+    fun collectSharedFlow() {
         viewModelScope.launch {
-            sharedFlow.collect{
+            sharedFlow.collect {
                 shared.value = it
             }
         }
@@ -72,6 +76,15 @@ class CountDownViewModel : ViewModel() {
                 .collect { timer ->
                     time.value = timer
                 }
+        }
+    }
+
+    fun handleExceptionInCoroutine() {
+        val handler = CoroutineExceptionHandler { _, throwable ->
+            error.value = throwable.message.toString()
+        }
+        val string = viewModelScope.launch(handler) {
+            launch { throw Exception("Error") }
         }
     }
 }

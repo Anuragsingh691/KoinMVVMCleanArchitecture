@@ -42,6 +42,9 @@ class CountDownFlowExampleFragment : Fragment() {
         countDownViewModel.collectFlow()
         countDownViewModel.collectStateFlow()
         countDownViewModel.collectSharedFlow()
+        countDownViewModel.error.observe(this){
+            Toast.makeText(requireContext(),"exception occurred $it",Toast.LENGTH_LONG).show()
+        }
 
         val job = lifecycleScope.launch(Dispatchers.Default) {
             repeat(5) {
@@ -57,6 +60,7 @@ class CountDownFlowExampleFragment : Fragment() {
         }
 
         binding.incrementBtn.setOnClickListener { view ->
+            countDownViewModel.handleExceptionInCoroutine()
             // explicit intent
 //            Intent(ACTION_MAIN).also {
 //                it.setPackage("com.google.android.youtube")
