@@ -7,7 +7,9 @@ import com.example.swipemvvmkoin.model.ProductItem
 import com.example.swipemvvmkoin.repository.SwipeApiRepository
 import com.example.swipemvvmkoin.util.AppResult
 import com.example.swipemvvmkoin.util.SingleLiveEvent
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 
 class ProductListViewModel(private val repository: SwipeApiRepository) : ViewModel() {
     val showLoading = MutableLiveData<Boolean?>()
@@ -17,6 +19,21 @@ class ProductListViewModel(private val repository: SwipeApiRepository) : ViewMod
     fun getAllProducts() {
         showLoading.value = true
         viewModelScope.launch {
+            launch {
+                supervisorScope {
+                    val usersDeferred = async {} //getUsers() }
+                    val moreUsersDeferred = async {
+                    }
+                    val users = try {
+                        usersDeferred.await()
+                    } catch (e: Exception) {
+                    }
+                    val moreUsers = try {
+                        moreUsersDeferred.await()
+                    } catch (e: Exception) {
+                    }
+                }
+            }
             val result = repository.getProducts()
             showLoading.value = false
             when (result) {

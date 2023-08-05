@@ -4,13 +4,19 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.Intent.ACTION_MAIN
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.example.swipemvvmkoin.databinding.FragmentCountDownFlowExampleBinding
 import com.example.swipemvvmkoin.viewModel.CountDownViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Exception
 
@@ -36,6 +42,20 @@ class CountDownFlowExampleFragment : Fragment() {
         countDownViewModel.collectFlow()
         countDownViewModel.collectStateFlow()
         countDownViewModel.collectSharedFlow()
+
+        val job = lifecycleScope.launch(Dispatchers.Default) {
+            repeat(5) {
+                Log.d("CountDownFragment","job is running for iteration= $it")
+                delay(500L)
+            }
+        }
+        runBlocking {
+            Log.d("CountDownFragment","job is running in main thread")
+            delay(1000L)
+            job.cancel()
+            Log.d("CountDownFragment","Canceled job")
+        }
+
         binding.incrementBtn.setOnClickListener { view ->
             // explicit intent
 //            Intent(ACTION_MAIN).also {

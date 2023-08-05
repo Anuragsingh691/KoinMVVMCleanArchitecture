@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.swipemvvmkoin.R
@@ -22,6 +23,9 @@ import com.github.ybq.android.spinkit.sprite.Sprite
 import com.github.ybq.android.spinkit.style.Circle
 import com.github.ybq.android.spinkit.style.DoubleBounce
 import com.github.ybq.android.spinkit.style.WanderingCubes
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -54,9 +58,9 @@ class ProductListFragment : Fragment() {
         productListViewModel.getAllProducts()
 //        binding.recyclerView.addItemDecoration(ItemDecoration())
 
-        productListViewModel.productList.observe(this) { list->
+        productListViewModel.productList.observe(this) { list ->
             if (list != null) {
-                list.sortedByDescending { it.image!=null  || it.image!=" "}
+                list.sortedByDescending { it.image != null || it.image != " " }
                 adapter.updateData(list)
             }
         }
@@ -78,7 +82,12 @@ class ProductListFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                val filteredList = productListViewModel.productList.value?.filter { it.productName?.contains(s.toString(), true) ?: false }
+                val filteredList = productListViewModel.productList.value?.filter {
+                    it.productName?.contains(
+                        s.toString(),
+                        true
+                    ) ?: false
+                }
                 filteredList?.let {
                     adapter.updateData(it)
                 }
@@ -88,12 +97,12 @@ class ProductListFragment : Fragment() {
 
         productListViewModel.showError.observe(this) { string ->
             string?.let {
-                Toast.makeText(activity,it,Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
             }
         }
 
         productListViewModel.showLoading.observe(this, Observer {
-            if (it==false) {
+            if (it == false) {
                 binding.progressBarCyclic.visibility = View.GONE
                 binding.recyclerView.visibility = View.VISIBLE
             } else {
