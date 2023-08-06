@@ -10,9 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.swipemvvmkoin.databinding.FragmentCountDownFlowExampleBinding
 import com.example.swipemvvmkoin.viewModel.CountDownViewModel
+import com.example.swipemvvmkoin.viewModel.EventWrapperSampleViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -23,6 +25,7 @@ import java.lang.Exception
 class CountDownFlowExampleFragment : Fragment() {
     private val countDownViewModel by viewModel<CountDownViewModel>()
     private lateinit var binding: FragmentCountDownFlowExampleBinding
+    private val viewModel: EventWrapperSampleViewModel by activityViewModels<EventWrapperSampleViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,25 +45,28 @@ class CountDownFlowExampleFragment : Fragment() {
         countDownViewModel.collectFlow()
         countDownViewModel.collectStateFlow()
         countDownViewModel.collectSharedFlow()
-        countDownViewModel.error.observe(this){
-            Toast.makeText(requireContext(),"exception occurred $it",Toast.LENGTH_LONG).show()
+        countDownViewModel.error.observe(this) {
+            Toast.makeText(requireContext(), "exception occurred $it", Toast.LENGTH_LONG).show()
         }
 
         val job = lifecycleScope.launch(Dispatchers.Default) {
             repeat(5) {
-                Log.d("CountDownFragment","job is running for iteration= $it")
+                Log.d("CountDownFragment", "job is running for iteration= $it")
                 delay(500L)
             }
         }
         runBlocking {
-            Log.d("CountDownFragment","job is running in main thread")
+            Log.d("CountDownFragment", "job is running in main thread")
             delay(1000L)
             job.cancel()
-            Log.d("CountDownFragment","Canceled job")
+            Log.d("CountDownFragment", "Canceled job")
         }
 
         binding.incrementBtn.setOnClickListener { view ->
-            countDownViewModel.handleExceptionInCoroutine()
+            var numList = (1..10).toList()
+            var sum = numList.customSum { it % 2 == 1 }
+            binding.countDown.text = "sum is $sum"
+//            countDownViewModel.handleExceptionInCoroutine()
             // explicit intent
 //            Intent(ACTION_MAIN).also {
 //                it.setPackage("com.google.android.youtube")
@@ -71,23 +77,23 @@ class CountDownFlowExampleFragment : Fragment() {
 //                }
 //            }
 
-            val intent = Intent(ACTION_MAIN).apply {
-                type = "text/plain"
-                putExtra(Intent.EXTRA_EMAIL, arrayOf("test@test.com"))
-                putExtra(Intent.EXTRA_SUBJECT, "This is the subject")
-                putExtra(Intent.EXTRA_TEXT, "This is the content")
-            }
-            activity?.let { act ->
-                if (intent.resolveActivity(act.packageManager) != null) {
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(context, "Activity not found", Toast.LENGTH_LONG).show()
-                }
-            }
+//            val intent = Intent(ACTION_MAIN).apply {
+//                type = "text/plain"
+//                putExtra(Intent.EXTRA_EMAIL, arrayOf("test@test.com"))
+//                putExtra(Intent.EXTRA_SUBJECT, "This is the subject")
+//                putExtra(Intent.EXTRA_TEXT, "This is the content")
+//            }
+//            activity?.let { act ->
+//                if (intent.resolveActivity(act.packageManager) != null) {
+//                    startActivity(intent)
+//                } else {
+//                    Toast.makeText(context, "Activity not found", Toast.LENGTH_LONG).show()
+//                }
+//            }
             // flow
 //            countDownViewModel.squaredNumber(2)
         }
-        initialiseCountDown()
+//        initialiseCountDown()
     }
 
     private fun initialiseCountDown() {
@@ -97,5 +103,15 @@ class CountDownFlowExampleFragment : Fragment() {
 //        countDownViewModel.time.observe(this){
 //            binding.countDown.text = it.toString()
 //        }
+    }
+
+    private fun List<Int>.customSum(filterFunction: (num: Int) -> (Boolean)): Int {
+        var sum = 0;
+        for (item in this) {
+            if (filterFunction(item)) {
+                sum += item
+            }
+        }
+        return sum
     }
 }

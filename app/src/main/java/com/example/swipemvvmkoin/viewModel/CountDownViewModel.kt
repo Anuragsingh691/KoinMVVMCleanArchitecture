@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 import java.lang.Exception
 
 class CountDownViewModel : ViewModel() {
@@ -83,8 +85,17 @@ class CountDownViewModel : ViewModel() {
         val handler = CoroutineExceptionHandler { _, throwable ->
             error.value = throwable.message.toString()
         }
-        val string = viewModelScope.launch(handler) {
-            launch { throw Exception("Error") }
+        viewModelScope.launch(Dispatchers.Main + handler) {
+            supervisorScope {
+                launch {
+                    delay(300L)
+                    throw Exception("C1 failed")
+                }
+                launch {
+                    delay(400L)
+                    error.value = "supervisor example happened"
+                }
+            }
         }
     }
 }

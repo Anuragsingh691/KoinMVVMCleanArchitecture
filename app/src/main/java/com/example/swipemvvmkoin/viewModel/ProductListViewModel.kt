@@ -33,24 +33,4 @@ class ProductListViewModel(private val repository: SwipeApiRepository) : ViewMod
         }
     }
 
-    fun supervisorJobExample(){
-        viewModelScope.launch(Dispatchers.IO) {
-            // supervisor job example
-            launch {
-                supervisorScope {
-                    val usersDeferred = async {} //getUsers() }
-                    val moreUsersDeferred = async {
-                    }
-                    val users = try {
-                        usersDeferred.await()
-                    } catch (e: Exception) {
-                    }
-                    val moreUsers = try {
-                        moreUsersDeferred.await()
-                    } catch (e: Exception) {
-                    }
-                }
-            }
-        }
-    }
 }
